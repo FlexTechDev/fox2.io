@@ -1,0 +1,18 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://dh5nfml2ccbp5"]
+
+[ext_resource type="Shader" path="res://assets/shaders/outline.gdshader" id="1_u68w0"]
+[ext_resource type="Shader" path="res://assets/shaders/toon.gdshader" id="2_d04sf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5b2pc"]
+render_priority = 0
+shader = ExtResource("1_u68w0")
+
+[resource]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_5b2pc")
+shader = ExtResource("2_d04sf")
+shader_parameter/color = Color(0.490196, 0.819608, 1, 1)
+shader_parameter/specular = Color(0, 0.47451, 0.788235, 1)
+shader_parameter/fresnel = Color(0, 0.466667, 0.662745, 0.419608)
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://klfs1lrnw6om"]
+
+[ext_resource type="PackedScene" uid="uid://doi63n8xpi76b" path="res://imports/meshes/water/water.glb" id="1_kd3pa"]
+[ext_resource type="Material" uid="uid://8u8jgho5jjms" path="res://assets/materials/water.tres" id="2_t5vd2"]
+
+[node name="water" instance=ExtResource("1_kd3pa")]
+
+[node name="Plane" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_t5vd2")

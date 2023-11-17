@@ -1,0 +1,25 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://cen3p6hkq12mr"]
+
+[ext_resource type="Shader" path="res://assets/shaders/outline.gdshader" id="1_0evig"]
+[ext_resource type="Shader" path="res://assets/shaders/toon.gdshader" id="1_i8ila"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jsoj6"]
+render_priority = 0
+shader = ExtResource("1_0evig")
+
+[sub_resource type="Gradient" id="Gradient_cgujc"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rqa66"]
+gradient = SubResource("Gradient_cgujc")
+
+[resource]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_jsoj6")
+shader = ExtResource("1_i8ila")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/specular = Color(0.0117647, 0.0117647, 0.0117647, 1)
+shader_parameter/fresnel = Color(0.0470588, 0.0470588, 0.0470588, 0.45098)
+shader_parameter/specular_texture = SubResource("GradientTexture1D_rqa66")
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)

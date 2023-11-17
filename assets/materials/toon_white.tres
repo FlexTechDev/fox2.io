@@ -1,0 +1,25 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://c2jqfuw6g4xn3"]
+
+[ext_resource type="Shader" path="res://assets/shaders/outline.gdshader" id="1_hxe46"]
+[ext_resource type="Shader" path="res://assets/shaders/toon.gdshader" id="1_yrq2d"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5b2pc"]
+render_priority = 0
+shader = ExtResource("1_hxe46")
+
+[sub_resource type="Gradient" id="Gradient_507fs"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ffxk7"]
+gradient = SubResource("Gradient_507fs")
+
+[resource]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_5b2pc")
+shader = ExtResource("1_yrq2d")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/specular = Color(1, 1, 1, 1)
+shader_parameter/fresnel = Color(1, 1, 1, 0.462745)
+shader_parameter/specular_texture = SubResource("GradientTexture1D_ffxk7")
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)

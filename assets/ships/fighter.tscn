@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://r7svmbyf76mj"]
+
+[ext_resource type="Script" path="res://scripts/aircraft_controller.gd" id="1_15scv"]
+[ext_resource type="PackedScene" uid="uid://bjvq8kvukd662" path="res://imports/meshes/ships/ship_inh.tscn" id="1_ct1qa"]
+[ext_resource type="Script" path="res://scripts/aircraft_settings.gd" id="2_2ncw7"]
+
+[sub_resource type="Resource" id="Resource_bpkpd"]
+script = ExtResource("2_2ncw7")
+min_speed = 2.0
+max_speed = 50.0
+turn_speed = 0.75
+pitch_speed = 0.5
+lerp_speed = 5.0
+level_speed = 3.0
+throttle_delta = 30.0
+acceleration = 6.0
+roll_lean_divisor = 2.0
+turn_lean_divisor = 4.0
+pitch_lean_divisor = 3.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_hell1"]
+height = 0.953952
+radius = 0.146504
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6kkap"]
+size = Vector3(1.17402, 0.456869, 0.0336996)
+
+[node name="Fighter" type="Node3D"]
+
+[node name="RigidBody3D" type="CharacterBody3D" parent="."]
+script = ExtResource("1_15scv")
+settings = SubResource("Resource_bpkpd")
+
+[node name="ship" parent="RigidBody3D" instance=ExtResource("1_ct1qa")]
+
+[node name="Body" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.0235822, -0.0137651)
+shape = SubResource("CylinderShape3D_hell1")
+
+[node name="Wings" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.0331419, -0.25777)
+shape = SubResource("BoxShape3D_6kkap")
+
+[node name="Camera3D" type="Camera3D" parent="RigidBody3D"]
+transform = Transform3D(-0.999969, 0.00238928, -0.00755539, 0.000634194, 0.974533, 0.224245, 0.00789876, 0.224233, -0.974504, 0, 1.00946, -3.85336)
+current = true
