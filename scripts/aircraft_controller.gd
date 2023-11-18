@@ -39,3 +39,5 @@ func _physics_process(delta: float) -> void:
 	velocity = transform.basis.z * forward_speed;
 	
 	move_and_slide();
+	
+	$RayCast3D.global_rotation = Vector3.ZERO;

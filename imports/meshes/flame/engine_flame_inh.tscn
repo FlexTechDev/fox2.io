@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnxwmnqbllaeg"]
+
+[ext_resource type="PackedScene" uid="uid://bu4f8f0ocub12" path="res://imports/meshes/flame/engine_flame.glb" id="1_tj06m"]
+[ext_resource type="Material" uid="uid://bss6a1b5wtqpd" path="res://assets/materials/engine_flame.tres" id="2_q7lql"]
+
+[node name="engine_flame" instance=ExtResource("1_tj06m")]
+
+[node name="Cylinder" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_q7lql")

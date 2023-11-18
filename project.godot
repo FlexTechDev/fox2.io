@@ -65,9 +65,9 @@ fresnel_smoothness={
 }
 outline_color={
 "type": "vec4",
-"value": Vector4(0.2, 0.2, 0.2, 1)
+"value": Vector4(0, 0, 0, 1)
 }
 outline_width={
 "type": "float",
-"value": 5.0
+"value": 1.0
 }

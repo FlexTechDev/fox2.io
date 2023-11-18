@@ -2,7 +2,7 @@ extends Resource
 
 class_name AircraftSettings
 
-@export var min_speed: float = 2;
+@export var min_speed: float = 10;
 @export var max_speed: float = 50;
 @export var turn_speed: float = 0.75;
 @export var pitch_speed: float = 0.5;

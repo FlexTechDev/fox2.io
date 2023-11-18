@@ -1,0 +1,24 @@
+[gd_resource type="ShaderMaterial" load_steps=7 format=3 uid="uid://bss6a1b5wtqpd"]
+
+[ext_resource type="Shader" path="res://assets/shaders/engine_flame.gdshader" id="1_ncmh1"]
+
+[sub_resource type="Gradient" id="Gradient_vathy"]
+colors = PackedColorArray(0.448567, 0, 0.0145123, 1, 0.398136, 0.184806, 9.62615e-08, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vw2gi"]
+gradient = SubResource("Gradient_vathy")
+
+[sub_resource type="Gradient" id="Gradient_vcica"]
+colors = PackedColorArray(0.707967, 0.707967, 0.707967, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fdf55"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1snpd"]
+color_ramp = SubResource("Gradient_vcica")
+noise = SubResource("FastNoiseLite_fdf55")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_ncmh1")
+shader_parameter/noise = SubResource("NoiseTexture2D_1snpd")
+shader_parameter/gradient = SubResource("GradientTexture2D_vw2gi")

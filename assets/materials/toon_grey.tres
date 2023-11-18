@@ -1,15 +1,9 @@
-[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://l3jkfxjc5dja"]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://l3jkfxjc5dja"]
 
 [ext_resource type="Shader" path="res://assets/shaders/toon.gdshader" id="1_2qb7e"]
-[ext_resource type="Shader" path="res://assets/shaders/outline.gdshader" id="1_xoe0a"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_mmq4p"]
-render_priority = 0
-shader = ExtResource("1_xoe0a")
 
 [resource]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_mmq4p")
 shader = ExtResource("1_2qb7e")
 shader_parameter/color = Color(0.14902, 0.14902, 0.14902, 1)
 shader_parameter/specular = Color(0.0705882, 0.0705882, 0.0705882, 1)
