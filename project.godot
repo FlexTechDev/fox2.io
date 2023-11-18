@@ -15,6 +15,10 @@ run/main_scene="res://scenes/testing/island.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+AirGlobals="*res://scripts/globals/air_globals.gd"
+
 [display]
 
 window/stretch/mode="canvas_items"

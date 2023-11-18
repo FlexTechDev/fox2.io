@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://r7svmbyf76mj"]
+[gd_scene load_steps=10 format=3 uid="uid://r7svmbyf76mj"]
 
 [ext_resource type="Script" path="res://scripts/aircraft_controller.gd" id="1_15scv"]
 [ext_resource type="PackedScene" uid="uid://bjvq8kvukd662" path="res://imports/meshes/ships/ship_inh.tscn" id="1_ct1qa"]
 [ext_resource type="Script" path="res://scripts/aircraft_settings.gd" id="2_2ncw7"]
 [ext_resource type="PackedScene" uid="uid://dnxwmnqbllaeg" path="res://imports/meshes/flame/engine_flame_inh.tscn" id="4_ljwc7"]
 [ext_resource type="PackedScene" uid="uid://cyashsr08exoe" path="res://assets/vfx/water_stream_effect.tscn" id="5_dv8m3"]
+[ext_resource type="PackedScene" uid="uid://de5v6jut7ttuj" path="res://imports/meshes/effects/super_sonic_cone_inh.tscn" id="5_yjad3"]
 
 [sub_resource type="Resource" id="Resource_bpkpd"]
 script = ExtResource("2_2ncw7")
@@ -38,6 +39,9 @@ settings = SubResource("Resource_bpkpd")
 [node name="engine_flame" parent="RigidBody3D/ship" instance=ExtResource("4_ljwc7")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.000119627, -0.0201354, -0.501241)
 
+[node name="super_sonic_cone" parent="RigidBody3D/ship" instance=ExtResource("5_yjad3")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.0802041)
+
 [node name="Body" type="CollisionShape3D" parent="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.0235822, -0.0137651)
 shape = SubResource("CylinderShape3D_hell1")
@@ -53,5 +57,6 @@ current = true
 [node name="RayCast3D" type="RayCast3D" parent="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.74634)
 target_position = Vector3(0, -15, 0)
+collision_mask = 2
 
 [node name="WaterStreamEffect" parent="." instance=ExtResource("5_dv8m3")]

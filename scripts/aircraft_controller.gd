@@ -5,6 +5,8 @@ extends CharacterBody3D
 @onready var water_stream_node: Node3D = get_node("../WaterStreamEffect");
 @onready var ship: Node3D = $ship;
 @onready var raycast: RayCast3D = $RayCast3D;
+@onready var engine_flame: Node3D = $ship/engine_flame;
+@onready var sonic_boom_cone: AnimationPlayer = $ship/super_sonic_cone/AnimationPlayer;
 
 var forward_speed: float = 0;
 var target_speed: float = 0;
@@ -48,6 +50,15 @@ func _physics_process(delta: float) -> void:
 	velocity = transform.basis.z * forward_speed;
 	
 	move_and_slide();
+	
+	if forward_speed >= AirGlobals.sound_barrier and forward_speed < AirGlobals.sound_barrier + 1:
+		sonic_boom_cone.play("boom");
+	else:
+		sonic_boom_cone.play("idle");
+	
+	print(forward_speed);
+	
+	engine_flame.scale.y = target_speed / settings.max_speed;
 	
 	raycast.global_rotation = Vector3.ZERO;
 	
