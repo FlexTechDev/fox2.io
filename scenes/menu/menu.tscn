@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=3 uid="uid://kyw5w0c5ftik"]
+
+[ext_resource type="Environment" uid="uid://ru1hrhrhbxy5" path="res://assets/environment/island_environment.tres" id="1_mvnh6"]
+[ext_resource type="Material" uid="uid://c3kujpdys7n8h" path="res://assets/materials/colors/toon_red.tres" id="2_kculy"]
+[ext_resource type="Material" uid="uid://dh5nfml2ccbp5" path="res://assets/materials/colors/toon_blue.tres" id="2_srbuq"]
+[ext_resource type="PackedScene" uid="uid://bjvq8kvukd662" path="res://imports/meshes/ships/ship_inh.tscn" id="3_v1okx"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_jrjym"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_85ccp"]
+
+[node name="Menu" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_mvnh6")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.965926, 0.224144, -0.12941, 0, 0.5, 0.866025, 0.258819, -0.836516, 0.482963, 0, 4, 0)
+light_energy = 0.8
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.966012, 0.258499, 0, -0.258499, 0.966012, 0, 1.59211, 2.93431)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(298.529, 0, 0, 0, -4.37114e-08, -21.3776, 0, 1, -9.34444e-07, 0, -2.49952, -3.62249)
+mesh = SubResource("PlaneMesh_jrjym")
+skeleton = NodePath("../MeshInstance3D")
+surface_material_override/0 = ExtResource("2_kculy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.26097, 0, 0, 0, 1, 0, 0, 0, 2.26097, 0, -1.02049, 0)
+mesh = SubResource("CylinderMesh_85ccp")
+surface_material_override/0 = ExtResource("2_srbuq")
+
+[node name="ship" parent="." instance=ExtResource("3_v1okx")]
+transform = Transform3D(0.663143, 0, -0.748493, 0, 1, 0, 0.748493, 0, 0.663143, 0, 0.299215, 0)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -6.0
+offset_top = -115.0
+offset_right = 41.0
+offset_bottom = -84.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "PLAY
+"

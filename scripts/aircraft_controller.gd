@@ -3,7 +3,7 @@ extends CharacterBody3D
 @export var settings: AircraftSettings
 @export var missile_scene: PackedScene;
 
-@onready var launch_point: Node3D = $LaunchPoint;
+@onready var launch_point: Node3D = $ship/LaunchPoint;
 @onready var water_stream_node: Node3D = get_node("../WaterStreamEffect");
 @onready var ship: Node3D = $ship;
 @onready var raycast: RayCast3D = $RayCast3D;
@@ -18,11 +18,13 @@ var pitch_input: float = 0;
 var smoothed_turn_input: float = 0;
 var smoothed_pitch_input: float = 0;
 
+var mouse_captured: bool = true;
+
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED;
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and mouse_captured:
 		pitch_input = event.relative.y / 25;
 		turn_input = -event.relative.x / 25;
 
@@ -37,6 +39,13 @@ func get_input(delta: float) -> void:
 	
 func _physics_process(delta: float) -> void:
 	get_input(delta);
+	
+	if Input.is_action_just_pressed("escape"):
+		mouse_captured = !mouse_captured;
+		if mouse_captured:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED;
+		else:
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE;
 	
 	var up_vector: Vector3 = Vector3.UP;
 	up_vector.y *= transform.basis.y.y;

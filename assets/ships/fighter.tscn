@@ -44,6 +44,9 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.0001
 [node name="super_sonic_cone" parent="RigidBody3D/ship" instance=ExtResource("5_yjad3")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.0802041)
 
+[node name="LaunchPoint" type="Node3D" parent="RigidBody3D/ship"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.331979, 0)
+
 [node name="Body" type="CollisionShape3D" parent="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.0235822, -0.0137651)
 shape = SubResource("CylinderShape3D_hell1")
@@ -60,8 +63,5 @@ current = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.74634)
 target_position = Vector3(0, -15, 0)
 collision_mask = 2
-
-[node name="LaunchPoint" type="Node3D" parent="RigidBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.331979, 0)
 
 [node name="WaterStreamEffect" parent="." instance=ExtResource("5_dv8m3")]

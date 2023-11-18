@@ -19,10 +19,10 @@ noise = SubResource("FastNoiseLite_wkhmq")
 [resource]
 render_priority = 0
 shader = ExtResource("1_nthd7")
-shader_parameter/beer_factor = 0.8
+shader_parameter/beer_factor = 0.415
 shader_parameter/foam_distance = 0.01
-shader_parameter/foam_max_distance = 1.145
-shader_parameter/foam_min_distance = 6.7
+shader_parameter/foam_max_distance = 0.29
+shader_parameter/foam_min_distance = 0.215
 shader_parameter/foam_color = Color(1, 1, 1, 1)
 shader_parameter/surface_noise_tiling = Vector2(1, 4)
 shader_parameter/surface_noise_scroll = Vector3(0.03, 0.03, 0)
