@@ -3,6 +3,21 @@
 [ext_resource type="PackedScene" uid="uid://pyloea137gaw" path="res://imports/meshes/effects/super_sonic_cone.glb" id="1_tuidm"]
 [ext_resource type="Material" uid="uid://csjyqykygf8kv" path="res://assets/materials/sonic_boom.tres" id="2_g5sk5"]
 
+[sub_resource type="Animation" id="Animation_4wpvv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cone:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_8hhvx"]
 resource_name = "boom"
 length = 0.3
@@ -18,21 +33,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(1, 1, 1), Vector3(0.4, 0.4, 0.4), Vector3(1, 1, 1), Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_4wpvv"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Cone:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_a2qjw"]
