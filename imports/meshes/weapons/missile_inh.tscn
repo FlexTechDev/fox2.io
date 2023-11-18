@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://b4atwne53bqq6"]
+
+[ext_resource type="PackedScene" uid="uid://bhxnhig625seb" path="res://imports/meshes/weapons/missile.glb" id="1_714wa"]
+[ext_resource type="Material" uid="uid://c3kujpdys7n8h" path="res://assets/materials/colors/toon_red.tres" id="2_jwpfv"]
+[ext_resource type="Material" uid="uid://c2jqfuw6g4xn3" path="res://assets/materials/colors/toon_white.tres" id="2_v7djr"]
+
+[node name="missile" instance=ExtResource("1_714wa")]
+
+[node name="Cube_001" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_v7djr")
+surface_material_override/1 = ExtResource("2_jwpfv")

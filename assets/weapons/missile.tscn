@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://bx1bhewvjo0v3"]
+
+[ext_resource type="PackedScene" uid="uid://b4atwne53bqq6" path="res://imports/meshes/weapons/missile_inh.tscn" id="1_1rkma"]
+[ext_resource type="Script" path="res://scripts/weapons/missile.gd" id="1_i55mv"]
+[ext_resource type="PackedScene" uid="uid://dnxwmnqbllaeg" path="res://imports/meshes/flame/engine_flame_inh.tscn" id="2_wyu3v"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_v2jqs"]
+height = 0.511966
+radius = 0.0322527
+
+[node name="Missile" type="CharacterBody3D"]
+script = ExtResource("1_i55mv")
+
+[node name="missile" parent="." instance=ExtResource("1_1rkma")]
+
+[node name="engine_flame" parent="." instance=ExtResource("2_wyu3v")]
+transform = Transform3D(0.231478, 0, 0, 0, -1.01182e-08, 0.231478, 0, -0.231478, -1.01182e-08, 0, 0, -0.146484)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.101677)
+shape = SubResource("CylinderShape3D_v2jqs")
