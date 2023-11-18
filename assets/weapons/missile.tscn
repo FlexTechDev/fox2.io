@@ -23,6 +23,7 @@ point_count = 2
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
 
 [node name="Missile" type="CharacterBody3D"]
+collision_layer = 2
 script = ExtResource("1_i55mv")
 explosion_scene = ExtResource("2_2ewgl")
 

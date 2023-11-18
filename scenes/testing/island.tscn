@@ -20,6 +20,7 @@ environment = ExtResource("3_a0p0f")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.965926, 0.224144, -0.12941, 0, 0.5, 0.866025, 0.258819, -0.836516, 0.482963, 0, 4, 0)
 light_energy = 0.8
+shadow_enabled = true
 
 [node name="totems" type="Node3D" parent="."]
 

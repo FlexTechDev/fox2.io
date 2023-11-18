@@ -1,13 +1,53 @@
-[gd_scene load_steps=7 format=3 uid="uid://kyw5w0c5ftik"]
+[gd_scene load_steps=12 format=3 uid="uid://kyw5w0c5ftik"]
 
 [ext_resource type="Environment" uid="uid://ru1hrhrhbxy5" path="res://assets/environment/island_environment.tres" id="1_mvnh6"]
 [ext_resource type="Material" uid="uid://c3kujpdys7n8h" path="res://assets/materials/colors/toon_red.tres" id="2_kculy"]
 [ext_resource type="Material" uid="uid://dh5nfml2ccbp5" path="res://assets/materials/colors/toon_blue.tres" id="2_srbuq"]
 [ext_resource type="PackedScene" uid="uid://bjvq8kvukd662" path="res://imports/meshes/ships/ship_inh.tscn" id="3_v1okx"]
+[ext_resource type="Theme" uid="uid://b2fvledgs0gx0" path="res://assets/ui/menu_theme.tres" id="5_0m5ds"]
+[ext_resource type="Script" path="res://scripts/menu/menu_manager.gd" id="6_kn6ls"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_jrjym"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_85ccp"]
+
+[sub_resource type="Animation" id="Animation_o42v2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ioiwt"]
+resource_name = "spin"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3jvl4"]
+_data = {
+"RESET": SubResource("Animation_o42v2"),
+"spin": SubResource("Animation_ioiwt")
+}
 
 [node name="Menu" type="Node3D"]
 
@@ -21,20 +61,6 @@ light_energy = 0.8
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.966012, 0.258499, 0, -0.258499, 0.966012, 0, 1.59211, 2.93431)
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(298.529, 0, 0, 0, -4.37114e-08, -21.3776, 0, 1, -9.34444e-07, 0, -2.49952, -3.62249)
-mesh = SubResource("PlaneMesh_jrjym")
-skeleton = NodePath("../MeshInstance3D")
-surface_material_override/0 = ExtResource("2_kculy")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(2.26097, 0, 0, 0, 1, 0, 0, 0, 2.26097, 0, -1.02049, 0)
-mesh = SubResource("CylinderMesh_85ccp")
-surface_material_override/0 = ExtResource("2_srbuq")
-
-[node name="ship" parent="." instance=ExtResource("3_v1okx")]
-transform = Transform3D(0.663143, 0, -0.748493, 0, 1, 0, 0.748493, 0, 0.663143, 0, 0.299215, 0)
-
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
@@ -42,19 +68,79 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("5_0m5ds")
+script = ExtResource("6_kn6ls")
 
-[node name="Button" type="Button" parent="Control"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -6.0
-offset_top = -115.0
-offset_right = 41.0
-offset_bottom = -84.0
 grow_horizontal = 2
-grow_vertical = 0
-text = "PLAY
-"
+grow_vertical = 2
+
+[node name="VSeparator" type="VSeparator" parent="Control/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/HBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="Control/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Fox2 Alpha V0.1"
+
+[node name="HSeparator" type="HSeparator" parent="Control/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+
+[node name="Panel2" type="Panel" parent="Control/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(150, 75)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/HBoxContainer/VBoxContainer/Panel2"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -23.5
+offset_top = 11.0
+offset_right = 23.5
+offset_bottom = 42.0
+grow_horizontal = 2
+
+[node name="Button" type="Button" parent="Control/HBoxContainer/VBoxContainer/Panel2/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 4
+text = "PLAY"
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(298.529, 0, 0, 0, -4.37114e-08, -21.3776, 0, 1, -9.34444e-07, 0, -2.49952, -3.62249)
+mesh = SubResource("PlaneMesh_jrjym")
+skeleton = NodePath("../Podium/MeshInstance3D")
+surface_material_override/0 = ExtResource("2_kculy")
+
+[node name="Podium" type="Node3D" parent="."]
+transform = Transform3D(0.893764, 0, -0.448537, 0, 1, 0, 0.448537, 0, 0.893764, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Podium"]
+transform = Transform3D(2.26097, 0, 3.95321e-07, 0, 1, 0, -3.95321e-07, 0, 2.26097, 0, -1.02049, 0)
+mesh = SubResource("CylinderMesh_85ccp")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_srbuq")
+
+[node name="ship" parent="Podium" instance=ExtResource("3_v1okx")]
+transform = Transform3D(0.663143, 0, -0.748493, 0, 1, 0, 0.748493, 0, 0.663143, 0, 0.299215, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Podium"]
+reset_on_save = false
+libraries = {
+"": SubResource("AnimationLibrary_3jvl4")
+}
+
+[connection signal="pressed" from="Control/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/Button" to="Control" method="_on_play_pressed"]
