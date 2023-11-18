@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://r7svmbyf76mj"]
+[gd_scene load_steps=9 format=3 uid="uid://r7svmbyf76mj"]
 
 [ext_resource type="Script" path="res://scripts/aircraft_controller.gd" id="1_15scv"]
 [ext_resource type="PackedScene" uid="uid://bjvq8kvukd662" path="res://imports/meshes/ships/ship_inh.tscn" id="1_ct1qa"]
 [ext_resource type="Script" path="res://scripts/aircraft_settings.gd" id="2_2ncw7"]
 [ext_resource type="PackedScene" uid="uid://dnxwmnqbllaeg" path="res://imports/meshes/flame/engine_flame_inh.tscn" id="4_ljwc7"]
+[ext_resource type="PackedScene" uid="uid://cyashsr08exoe" path="res://assets/vfx/water_stream_effect.tscn" id="5_dv8m3"]
 
 [sub_resource type="Resource" id="Resource_bpkpd"]
 script = ExtResource("2_2ncw7")
@@ -50,4 +51,7 @@ transform = Transform3D(-0.999969, 0.00238928, -0.00755539, 0.000634194, 0.97453
 current = true
 
 [node name="RayCast3D" type="RayCast3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.74634)
 target_position = Vector3(0, -15, 0)
+
+[node name="WaterStreamEffect" parent="." instance=ExtResource("5_dv8m3")]

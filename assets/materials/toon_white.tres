@@ -6,6 +6,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5b2pc"]
 render_priority = 0
 shader = ExtResource("1_hxe46")
+shader_parameter/outline_color = null
 
 [sub_resource type="Gradient" id="Gradient_507fs"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)

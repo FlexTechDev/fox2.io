@@ -3,13 +3,13 @@
 [ext_resource type="Shader" path="res://assets/shaders/engine_flame.gdshader" id="1_ncmh1"]
 
 [sub_resource type="Gradient" id="Gradient_vathy"]
-colors = PackedColorArray(0.448567, 0, 0.0145123, 1, 0.398136, 0.184806, 9.62615e-08, 1)
+colors = PackedColorArray(0.448567, 0, 0.0145123, 1, 0.651432, 0.318854, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_vw2gi"]
 gradient = SubResource("Gradient_vathy")
 
 [sub_resource type="Gradient" id="Gradient_vcica"]
-colors = PackedColorArray(0.707967, 0.707967, 0.707967, 1, 1, 1, 1, 1)
+colors = PackedColorArray(0.28485, 0.28485, 0.28485, 1, 1, 1, 1, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_fdf55"]
 

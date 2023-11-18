@@ -11,7 +11,7 @@
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 
 [node name="Fighter" parent="." instance=ExtResource("2_rrac5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.01894, 2.49562, -0.467749)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.96088, 2.49562, -0.467749)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("3_a0p0f")
@@ -23,13 +23,13 @@ light_energy = 0.8
 [node name="totems" type="Node3D" parent="."]
 
 [node name="totem_stone" parent="totems" instance=ExtResource("4_o74x4")]
-transform = Transform3D(0.995825, 0.088974, -0.020425, -0.0900418, 0.994174, -0.0592528, 0.015034, 0.0608445, 0.998034, 7.06028, -0.445665, 2.0486)
+transform = Transform3D(0.995825, 0.088974, -0.020425, -0.0900418, 0.994174, -0.0592528, 0.015034, 0.0608445, 0.998034, 24.7661, -0.445665, 2.0486)
 
 [node name="totem_stone2" parent="totems" instance=ExtResource("4_o74x4")]
-transform = Transform3D(0.990041, -0.0203491, 0.1393, 0.0201507, 0.999793, 0.00283522, -0.139329, 0, 0.990246, 0.518597, -0.497391, 2.3017)
+transform = Transform3D(0.990041, -0.0203491, 0.1393, 0.0201507, 0.999793, 0.00283522, -0.139329, 0, 0.990246, 5.38136, -0.497391, 2.3017)
 
 [node name="totem_stone3" parent="totems" instance=ExtResource("4_o74x4")]
-transform = Transform3D(0.959644, 0, -0.281219, -0.0374266, 0.991104, -0.127716, 0.278718, 0.133087, 0.951107, -5.37779, -0.497391, 2.3017)
+transform = Transform3D(0.959644, 0, -0.281219, -0.0374266, 0.991104, -0.127716, 0.278718, 0.133087, 0.951107, -42.8106, -0.497391, 2.3017)
 
 [node name="totem_stone4" parent="totems" instance=ExtResource("4_o74x4")]
 transform = Transform3D(0.999969, 0, 0.00783646, -0.000716232, 0.995815, 0.0913946, -0.00780366, -0.0913973, 0.995784, -12.7366, -0.497391, 2.3017)

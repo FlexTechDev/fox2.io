@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://mlwf33uqsjcs"]
+
+[ext_resource type="PackedScene" uid="uid://dwr1u8sldrq1i" path="res://imports/meshes/water/stream.glb" id="1_b4oqu"]
+[ext_resource type="Material" uid="uid://dchyh0cqxaut0" path="res://assets/materials/water_jet.tres" id="2_ri52b"]
+
+[node name="stream" instance=ExtResource("1_b4oqu")]
+
+[node name="Plane" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_ri52b")
