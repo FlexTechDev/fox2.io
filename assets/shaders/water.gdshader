@@ -1,82 +1,90 @@
+/**
+* Ported from the original unity shader by Erik Roystan Ross
+* https://roystan.net/articles/toon-water.html
+* https://github.com/IronWarrior/ToonWaterShader
+* Camera Depth taken from Bastiaan Olij's video on: https://www.youtube.com/watch?v=Jq3he9Lbj7M
+*/
+
 shader_type spatial;
-render_mode blend_mix, specular_toon;
 
-uniform float speed : hint_range(-1,1) = 0.0;
+const float SMOOTHSTEP_AA = 0.01;
 
-//colors
-uniform sampler2D noise1; //add Godot noise here
-uniform sampler2D noise2; //add Godot noise here
-uniform sampler2D normalmap : hint_normal; //add Godot noise here, enable as_normalmap
-uniform vec4 color : source_color;
-uniform vec4 edge_color : source_color;
+uniform sampler2D surfaceNoise;
+uniform sampler2D distortNoise;
 
-//foam
-uniform float edge_scale = 0.25;
-uniform float near = 0.1;
-uniform float far = 100;
+uniform float beer_factor = 0.8;
 
-//depth
-uniform sampler2D depthTexture : hint_depth_texture;
+uniform float foam_distance = 0.01;
+uniform float foam_max_distance = 0.4;
+uniform float foam_min_distance = 0.04;
+uniform vec4 foam_color: source_color  = vec4(1.0);
 
-//screen
-uniform sampler2D screenTexture : hint_screen_texture;
+uniform vec2 surface_noise_tiling = vec2(1.0, 4.0);
+uniform vec3 surface_noise_scroll = vec3(0.03, 0.03, 0.0);
+uniform float surface_noise_cutoff: hint_range(0, 1) = 0.777;
+uniform float surface_distortion_amount: hint_range(0, 1) = 0.27;
 
-//waves
-uniform vec2 wave_strengh = vec2(0.5, 0.25);
-uniform vec2 wave_frequency = vec2(12.0, 12.0);
-uniform vec2 time_factor = vec2(1.0, 2.0);
+uniform vec4 _DepthGradientShallow: source_color = vec4(0.325, 0.807, 0.971, 0.725);
+uniform vec4 _DepthGradientDeep: source_color = vec4(0.086, 0.407, 1, 0.749);
+uniform float _DepthMaxDistance: hint_range(0, 1) = 1.0;
+uniform float _DepthFactor = 1.0;
 
+uniform sampler2D DEPTH_TEXTURE: hint_depth_texture, filter_linear_mipmap;
 
+varying vec2 noiseUV;
+varying vec2 distortUV;
+varying vec3 viewNormal;
 
-float rim(float depth){
-	depth = 2.0 * depth - 1.0;
-	return near * far / (far + depth * (near - far));
+vec4 alphaBlend(vec4 top, vec4 bottom)
+{
+	vec3 color = (top.rgb * top.a) + (bottom.rgb * (1.0 - top.a));
+	float alpha = top.a + bottom.a * (1.0 - top.a);
+	
+	return vec4(color, alpha);
 }
 
-
-float waves(vec2 pos, float time){
-	return (wave_strengh.y * sin(pos.y * wave_frequency.y + time * time_factor.y)) + (wave_strengh.x * sin(pos.x * wave_frequency.x + time * time_factor.x));
+void vertex() {
+	viewNormal = (MODELVIEW_MATRIX * vec4(NORMAL, 0.0)).xyz;
+	noiseUV = UV * surface_noise_tiling;
+	distortUV = UV;
 }
-
-
-void vertex(){
-	VERTEX.y += waves(VERTEX.xy, TIME);
-}
-
 
 void fragment(){
-	float time = TIME * speed;
-	vec3 n1 = texture(noise1, UV + time).rgb;
-	vec3 n2 = texture(noise2, UV - time * 0.2).rgb;
+	// https://www.youtube.com/watch?v=Jq3he9Lbj7M
+	float depth = texture(DEPTH_TEXTURE, SCREEN_UV).r;
+	depth = depth * 2.0 - 1.0;
+	depth = PROJECTION_MATRIX[3][2] / (depth + PROJECTION_MATRIX[2][2]);
+	depth = depth + VERTEX.z;
+	depth = exp(-depth * beer_factor);
+	depth = 1.0 - depth;
 	
-	vec2 uv_movement = UV * 4.0;
-	uv_movement += TIME * speed * 4.0;
+	// Still unsure how to get properly the NORMAL from the camera
+	// this was my best attempt
+	vec3 existingNormal = vec3(dFdx(depth), dFdy(depth), 0);
 	
-	float sum = (n1.r + n2.r) - 1.0;
+	float normalDot = clamp(dot(existingNormal.xyz, viewNormal), 0.0, 1.0);
+	float foamDistance = mix(foam_max_distance, foam_min_distance, normalDot);
 	
+	float foamDepth = clamp(depth / foamDistance, 0.0, 1.0);
+	float surfaceNoiseCutoff = foamDepth * surface_noise_cutoff;
 	
-	float z_depth = rim(texture(depthTexture, SCREEN_UV).x);
-	float z_pos = rim(FRAGCOORD.z);
-	float diff = z_depth - z_pos;
+	vec4 distortNoiseSample = texture(distortNoise, distortUV);
+	vec2 distortAmount = (distortNoiseSample.xy * 2.0 -1.0) * surface_distortion_amount;
 	
-	vec2 displacement = vec2(sum * 0.05);
-	diff += displacement.x * 50.0;
+	vec2 noise_uv = vec2(
+		(noiseUV.x + TIME * surface_noise_scroll.x) + distortAmount.x , 
+		(noiseUV.y + TIME * surface_noise_scroll.y + distortAmount.y)
+	);
+	float surfaceNoiseSample = texture(surfaceNoise, noise_uv).r;
+	float surfaceNoiseAmount = smoothstep(surfaceNoiseCutoff - SMOOTHSTEP_AA, surfaceNoiseCutoff + SMOOTHSTEP_AA, surfaceNoiseSample);
 	
+	float waterDepth = clamp(depth / _DepthMaxDistance, 0.0, 1.0) * _DepthFactor;
+	vec4 waterColor = mix(_DepthGradientShallow, _DepthGradientDeep, waterDepth);
+
+	vec4 surfaceNoiseColor = foam_color;
+    surfaceNoiseColor.a *= surfaceNoiseAmount;
+	vec4 color = alphaBlend(surfaceNoiseColor, waterColor);
 	
-	vec4 col = mix(edge_color, color, step(edge_scale, diff));
-	
-	vec4 alpha = vec4(1.0);
-	alpha = texture(screenTexture, SCREEN_UV + displacement);
-	
-	
-	float fin = 0.0;
-	if (sum > 0.0 && sum < 0.4) fin = 0.1;
-	if (sum > 0.4 && sum < 0.8) fin = 0.0;
-	if (sum > 0.8) fin = 1.0;
-	
-	ALBEDO = vec3(fin) + mix(alpha.rgb, col.rgb, color.a);
-	
-	NORMAL_MAP = texture(normalmap, uv_movement).rgb;
-	ROUGHNESS = 0.0;
-	SPECULAR = 1.0;
+	ALBEDO = color.rgb;
+	ALPHA = color.a;
 }

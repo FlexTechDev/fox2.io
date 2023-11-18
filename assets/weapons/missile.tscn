@@ -1,15 +1,30 @@
-[gd_scene load_steps=5 format=3 uid="uid://bx1bhewvjo0v3"]
+[gd_scene load_steps=9 format=3 uid="uid://bx1bhewvjo0v3"]
 
 [ext_resource type="PackedScene" uid="uid://b4atwne53bqq6" path="res://imports/meshes/weapons/missile_inh.tscn" id="1_1rkma"]
 [ext_resource type="Script" path="res://scripts/weapons/missile.gd" id="1_i55mv"]
+[ext_resource type="PackedScene" uid="uid://cn8kxfju1kxet" path="res://assets/vfx/explosion.tscn" id="2_2ewgl"]
 [ext_resource type="PackedScene" uid="uid://dnxwmnqbllaeg" path="res://imports/meshes/flame/engine_flame_inh.tscn" id="2_wyu3v"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_v2jqs"]
 height = 0.511966
 radius = 0.0322527
 
+[sub_resource type="FogMaterial" id="FogMaterial_mww65"]
+density = 0.0
+emission = Color(1, 1, 1, 1)
+height_falloff = 1e-05
+edge_fade = 1e-05
+
+[sub_resource type="Curve" id="Curve_dqtr0"]
+_data = [Vector2(0, 0.168421), 0.0, 0.0, 0, 0, Vector2(0.0731707, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_ibxgk"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
 [node name="Missile" type="CharacterBody3D"]
 script = ExtResource("1_i55mv")
+explosion_scene = ExtResource("2_2ewgl")
 
 [node name="missile" parent="." instance=ExtResource("1_1rkma")]
 
@@ -19,3 +34,10 @@ transform = Transform3D(0.231478, 0, 0, 0, -1.01182e-08, 0.231478, 0, -0.231478,
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.101677)
 shape = SubResource("CylinderShape3D_v2jqs")
+
+[node name="TrailEmitter" type="TrailEmitter" parent="."]
+material = SubResource("FogMaterial_mww65")
+curve = SubResource("Curve_dqtr0")
+gradient = SubResource("Gradient_ibxgk")
+num_points = 100
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.148099)
