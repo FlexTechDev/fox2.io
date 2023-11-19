@@ -2,6 +2,7 @@ extends CharacterBody3D
 
 @export var settings: AircraftSettings
 @export var missile_scene: PackedScene;
+@export var bomb_scene: PackedScene;
 
 @onready var launch_point: Node3D = $ship/LaunchPoint;
 @onready var water_stream_node: Node3D = get_node("../WaterStreamEffect");
@@ -69,6 +70,8 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("fire_missile"):
 		fire_missile();
+	if Input.is_action_just_pressed("drop_bomb"):
+		drop_bomb();
 	
 	engine_flame.scale.y = target_speed / settings.max_speed;
 	
@@ -81,6 +84,18 @@ func _physics_process(delta: float) -> void:
 		water_stream_node.rotation.y = ship.global_rotation.y;
 	else:
 		water_stream_node.scale.y = 0;
+
+func drop_bomb(target: Node3D = null) -> CharacterBody3D:
+	var bomb_instance = bomb_scene.instantiate();
+	
+	get_tree().current_scene.add_child(bomb_instance);
+	bomb_instance.global_position = launch_point.global_position;
+	bomb_instance.global_rotation = launch_point.global_rotation;
+	
+	bomb_instance.current_speed = forward_speed;
+	bomb_instance.velocity.y = velocity.y;
+	
+	return bomb_instance;
 
 func fire_missile(target: Node3D = null) -> CharacterBody3D:
 	var missile_instance = missile_scene.instantiate();

@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://r7svmbyf76mj"]
+[gd_scene load_steps=12 format=3 uid="uid://r7svmbyf76mj"]
 
 [ext_resource type="Script" path="res://scripts/aircraft_controller.gd" id="1_15scv"]
 [ext_resource type="PackedScene" uid="uid://bjvq8kvukd662" path="res://imports/meshes/ships/ship_inh.tscn" id="1_ct1qa"]
 [ext_resource type="Script" path="res://scripts/aircraft_settings.gd" id="2_2ncw7"]
 [ext_resource type="PackedScene" uid="uid://bx1bhewvjo0v3" path="res://assets/weapons/missile.tscn" id="3_pa0be"]
 [ext_resource type="PackedScene" uid="uid://dnxwmnqbllaeg" path="res://imports/meshes/flame/engine_flame_inh.tscn" id="4_ljwc7"]
+[ext_resource type="PackedScene" uid="uid://c8ag1xpwgpara" path="res://assets/weapons/bomb.tscn" id="4_nw038"]
 [ext_resource type="PackedScene" uid="uid://cyashsr08exoe" path="res://assets/vfx/water_stream_effect.tscn" id="5_dv8m3"]
 [ext_resource type="PackedScene" uid="uid://de5v6jut7ttuj" path="res://imports/meshes/effects/super_sonic_cone_inh.tscn" id="5_yjad3"]
 
@@ -35,6 +36,7 @@ size = Vector3(1.17402, 0.456869, 0.0336996)
 script = ExtResource("1_15scv")
 settings = SubResource("Resource_bpkpd")
 missile_scene = ExtResource("3_pa0be")
+bomb_scene = ExtResource("4_nw038")
 
 [node name="ship" parent="RigidBody3D" instance=ExtResource("1_ct1qa")]
 
