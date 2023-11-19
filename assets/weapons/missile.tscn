@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bx1bhewvjo0v3"]
+[gd_scene load_steps=10 format=3 uid="uid://bx1bhewvjo0v3"]
 
 [ext_resource type="PackedScene" uid="uid://b4atwne53bqq6" path="res://imports/meshes/weapons/missile_inh.tscn" id="1_1rkma"]
 [ext_resource type="Script" path="res://scripts/weapons/missile.gd" id="1_i55mv"]
@@ -22,6 +22,9 @@ point_count = 2
 [sub_resource type="Gradient" id="Gradient_ibxgk"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_f7ck0"]
+radius = 0.981123
+
 [node name="Missile" type="CharacterBody3D"]
 collision_layer = 2
 script = ExtResource("1_i55mv")
@@ -42,3 +45,8 @@ curve = SubResource("Curve_dqtr0")
 gradient = SubResource("Gradient_ibxgk")
 num_points = 100
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.148099)
+
+[node name="DamageRadius" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageRadius"]
+shape = SubResource("SphereShape3D_f7ck0")

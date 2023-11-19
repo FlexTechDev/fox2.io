@@ -1,5 +1,8 @@
 extends CharacterBody3D
 
+@onready var mesh: Node3D = $bomb;
+@onready var collider: CollisionShape3D = $CollisionShape3D;
+
 @export var target_speed: float = 40;
 @export var acceleration: float = 4;
 @export var explosion_scene: PackedScene;
@@ -9,17 +12,23 @@ extends CharacterBody3D
 var current_speed: float = 0;
 var last_fall_velocity: float = 0;
 
+func _process(delta: float) -> void:
+	if velocity:
+		look_at(transform.origin - velocity, Vector3.UP);
+
 func _physics_process(delta: float) -> void:
-	
 	if target_speed < current_speed:
 		current_speed = lerp(current_speed, target_speed, delta * acceleration);
 	
-	velocity = (transform.basis.z * current_speed);
+	velocity = transform.basis.z * current_speed;
 	
 	velocity.y = last_fall_velocity + gravity_constant;
-	velocity.y = clamp(velocity.y, terminal_velocity, INF);
+	velocity = velocity.clamp(Vector3(terminal_velocity,terminal_velocity,terminal_velocity), -Vector3(terminal_velocity,terminal_velocity,terminal_velocity));
 	
 	last_fall_velocity = velocity.y;
+	
+	collider.look_at(collider.global_position - velocity, Vector3.UP);
+	mesh.look_at(mesh.global_position - velocity, Vector3.UP);
 	
 	move_and_slide();
 	

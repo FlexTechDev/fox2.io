@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c8ag1xpwgpara"]
+[gd_scene load_steps=6 format=3 uid="uid://c8ag1xpwgpara"]
 
 [ext_resource type="PackedScene" uid="uid://mtvvv7wqiefl" path="res://imports/meshes/weapons/bomb_inh.tscn" id="1_2snwc"]
 [ext_resource type="Script" path="res://scripts/weapons/bomb.gd" id="1_fndb3"]
@@ -7,6 +7,9 @@
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_2xiyv"]
 height = 0.317567
 radius = 0.0427861
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_euguu"]
+radius = 7.04818
 
 [node name="Bomb" type="CharacterBody3D"]
 collision_layer = 2
@@ -18,3 +21,8 @@ explosion_scene = ExtResource("2_2nne1")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("CylinderShape3D_2xiyv")
+
+[node name="DamageRadius" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageRadius"]
+shape = SubResource("SphereShape3D_euguu")
