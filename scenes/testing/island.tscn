@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://bgwkulu1ug4bl"]
+[gd_scene load_steps=8 format=3 uid="uid://bgwkulu1ug4bl"]
 
 [ext_resource type="PackedScene" uid="uid://klfs1lrnw6om" path="res://imports/meshes/water/water_inh.tscn" id="1_6ud8i"]
 [ext_resource type="PackedScene" uid="uid://r7svmbyf76mj" path="res://assets/ships/fighter.tscn" id="2_rrac5"]
 [ext_resource type="Environment" uid="uid://ru1hrhrhbxy5" path="res://assets/environment/island_environment.tres" id="3_a0p0f"]
 [ext_resource type="PackedScene" uid="uid://dhmtn3ek7kn7t" path="res://imports/meshes/environment/rocks/totem_stone_inh.tscn" id="4_o74x4"]
 [ext_resource type="PackedScene" uid="uid://cv13md4icha6k" path="res://imports/meshes/environment/rocks/wall_inh.tscn" id="5_763ek"]
+[ext_resource type="PackedScene" uid="uid://5c4xs38rklw2" path="res://imports/meshes/environment/island_inh.tscn" id="6_pywsb"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_84vj0"]
+radius = 10.3794
 
 [node name="Island" type="Node3D"]
 
@@ -12,17 +16,17 @@
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 
 [node name="Fighter" parent="." instance=ExtResource("2_rrac5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.96088, 2.49562, -0.467749)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.96088, 2.49562, 100.306)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("3_a0p0f")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.965926, 0.224144, -0.12941, 0, 0.5, 0.866025, 0.258819, -0.836516, 0.482963, 0, 4, 0)
-light_energy = 0.8
-shadow_enabled = true
+light_energy = 0.5
 
 [node name="totems" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -85.346)
 
 [node name="totem_stone" parent="totems" instance=ExtResource("4_o74x4")]
 transform = Transform3D(0.995825, 0.088974, -0.020425, -0.0900418, 0.994174, -0.0592528, 0.015034, 0.0608445, 0.998034, 24.7661, -2.89244, 2.0486)
@@ -38,3 +42,13 @@ transform = Transform3D(0.999969, 0, 0.00783646, -0.000716232, 0.995815, 0.09139
 
 [node name="wall" parent="." instance=ExtResource("5_763ek")]
 transform = Transform3D(24.8897, 0, 0, 0, 24.8897, 0, 0, 0, 24.8897, 0, -36.6335, 0)
+
+[node name="Island" type="StaticBody3D" parent="."]
+transform = Transform3D(5.08584, 0, 0, 0, 5.08584, 0, 0, 0, 5.08584, -2.11185, -13.2496, 3.01454)
+
+[node name="island" parent="Island" instance=ExtResource("6_pywsb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Island"]
+transform = Transform3D(0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 3.73586, 0)
+shape = SubResource("CylinderShape3D_84vj0")

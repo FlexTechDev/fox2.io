@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dhmtn3ek7kn7t"]
 
-[ext_resource type="Material" uid="uid://cen3p6hkq12mr" path="res://assets/materials/toon_dark.tres" id="2_g0bsq"]
+[ext_resource type="Material" uid="uid://cen3p6hkq12mr" path="res://assets/materials/colors/toon_dark.tres" id="2_g0bsq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qm1hf"]
 

@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://5c4xs38rklw2"]
+
+[ext_resource type="PackedScene" uid="uid://cvfgeeqigu446" path="res://imports/meshes/environment/island.glb" id="1_01kdb"]
+[ext_resource type="Material" uid="uid://cen3p6hkq12mr" path="res://assets/materials/colors/toon_dark.tres" id="2_ft1yk"]
+[ext_resource type="Material" uid="uid://dxnk277i4m7tu" path="res://assets/materials/colors/toon_green.tres" id="3_hdbkj"]
+
+[node name="island2" instance=ExtResource("1_01kdb")]
+
+[node name="Cylinder_002" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_ft1yk")
+surface_material_override/1 = ExtResource("3_hdbkj")
