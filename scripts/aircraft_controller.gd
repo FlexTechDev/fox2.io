@@ -93,7 +93,7 @@ func drop_bomb(target: Node3D = null) -> CharacterBody3D:
 	bomb_instance.global_rotation = launch_point.global_rotation;
 	
 	bomb_instance.current_speed = forward_speed;
-	bomb_instance.velocity.y = velocity.y;
+	bomb_instance.last_fall_velocity = velocity.y;
 	
 	return bomb_instance;
 
