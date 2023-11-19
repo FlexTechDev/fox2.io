@@ -5,11 +5,16 @@ extends CharacterBody3D
 @export var explosion_scene: PackedScene;
 
 var current_speed: float = 0;
+var target: Node3D;
 
 func _physics_process(delta: float) -> void:
 	current_speed = lerp(current_speed, target_speed, delta * acceleration);
 	
-	velocity = transform.basis.z * current_speed;
+	if(target != null):
+		velocity = -transform.basis.z * current_speed
+		look_at(target.global_position);
+	else:
+		velocity = transform.basis.z * current_speed
 	
 	move_and_slide();
 	

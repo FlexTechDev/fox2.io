@@ -10,6 +10,7 @@ extends CharacterBody3D
 @onready var raycast: RayCast3D = $RayCast3D;
 @onready var engine_flame: Node3D = $ship/engine_flame;
 @onready var sonic_boom_cone: AnimationPlayer = $ship/super_sonic_cone/AnimationPlayer;
+@onready var hud: Control = get_node("../Control/HUD");
 
 var forward_speed: float = 0;
 var target_speed: float = 0;
@@ -103,6 +104,9 @@ func fire_missile(target: Node3D = null) -> CharacterBody3D:
 	get_tree().current_scene.add_child(missile_instance);
 	missile_instance.global_position = launch_point.global_position;
 	missile_instance.global_rotation = launch_point.global_rotation;
+	
+	if hud.nodes_on_radar.size() > hud.lock_index and hud.is_locked:
+		missile_instance.target = hud.nodes_on_radar[hud.lock_index];
 	
 	missile_instance.current_speed = forward_speed;
 	

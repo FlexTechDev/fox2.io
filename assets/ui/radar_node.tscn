@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://dy1w1do30c3j5"]
+
+[ext_resource type="Texture2D" uid="uid://cyuxpyxtcbh5j" path="res://imports/textures/ui/square_hollow.png" id="1_5cvtf"]
+[ext_resource type="Script" path="res://scripts/menu/radar_node.gd" id="1_blopo"]
+
+[node name="RadarNode" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_blopo")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -40.0
+offset_right = 8.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
+pivot_offset = Vector2(26.5, 26.5)
+texture = ExtResource("1_5cvtf")

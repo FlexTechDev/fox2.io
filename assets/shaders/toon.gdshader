@@ -92,10 +92,6 @@ void fragment() {
 	FRESNEL_COLOR = fresnel.rgb * texture(fresnel_texture, UV).rgb;
 	FRESNEL_AMOUNT = fresnel.a * texture(fresnel_texture, UV).a;
 	
-#if USE_EMISSION
-	EMISSION += emission_fragment(UV);
-#endif
-	
 #if USE_REFLECTIONS
 	Surface surf = reflections_fragment(UV);
 	METALLIC = surf.metallic;
