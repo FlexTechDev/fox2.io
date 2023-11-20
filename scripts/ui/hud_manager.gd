@@ -21,13 +21,12 @@ func _input(event: InputEvent) -> void:
 				if last_locked != null:
 					last_locked.lock();
 					is_locked = true;
-			elif get_children().size() <= lock_index:
+			elif get_children().size() == lock_index and lock_index != 0:
 				lock_index = 0;
 				last_locked = get_child(lock_index)
 				if last_locked != null:
 					last_locked.lock();
 					is_locked = true;
-				
 			elif get_children().size() == 0:
 				if last_locked != null:
 					last_locked.unlock();
