@@ -12,6 +12,8 @@ extends CharacterBody3D
 @onready var sonic_boom_cone: AnimationPlayer = $ship/super_sonic_cone/AnimationPlayer;
 @onready var hud: Control = get_node("../Control/HUD");
 
+var network_id: int = 0;
+
 var forward_speed: float = 0;
 var target_speed: float = 0;
 

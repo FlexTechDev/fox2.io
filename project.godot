@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 AirGlobals="*res://scripts/globals/air_globals.gd"
+GlobalNetworkManager="*res://scripts/multiplayer/global_network_manager.gd"
 
 [display]
 

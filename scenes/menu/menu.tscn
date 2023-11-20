@@ -95,11 +95,11 @@ layout_mode = 2
 text = "Fox2 Alpha V0.1"
 
 [node name="HSeparator" type="HSeparator" parent="Control/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 500)
+custom_minimum_size = Vector2(0, 450)
 layout_mode = 2
 
 [node name="Panel2" type="Panel" parent="Control/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(150, 75)
+custom_minimum_size = Vector2(150, 140)
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/HBoxContainer/VBoxContainer/Panel2"]
@@ -118,6 +118,16 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_vertical = 4
 text = "PLAY"
+
+[node name="LineEdit" type="LineEdit" parent="Control/HBoxContainer/VBoxContainer/Panel2/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Enter IP"
+
+[node name="Button2" type="Button" parent="Control/HBoxContainer/VBoxContainer/Panel2/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 4
+text = "MULTI-TEST"
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(298.529, 0, 0, 0, -4.37114e-08, -21.3776, 0, 1, -9.34444e-07, 0, -2.49952, -3.62249)
@@ -144,3 +154,4 @@ libraries = {
 }
 
 [connection signal="pressed" from="Control/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/Button" to="Control" method="_on_play_pressed"]
+[connection signal="pressed" from="Control/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/Button2" to="Control" method="_on_multiplayer_pressed"]
