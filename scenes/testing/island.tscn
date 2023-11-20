@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://bgwkulu1ug4bl"]
 
 [ext_resource type="PackedScene" uid="uid://klfs1lrnw6om" path="res://imports/meshes/water/water_inh.tscn" id="1_6ud8i"]
-[ext_resource type="PackedScene" uid="uid://r7svmbyf76mj" path="res://assets/ships/fighter.tscn" id="2_rrac5"]
+[ext_resource type="PackedScene" uid="uid://r7svmbyf76mj" path="res://assets/ships/ship_2.tscn" id="2_rrac5"]
 [ext_resource type="Environment" uid="uid://ru1hrhrhbxy5" path="res://assets/environment/island_environment.tres" id="3_a0p0f"]
 [ext_resource type="PackedScene" uid="uid://dhmtn3ek7kn7t" path="res://imports/meshes/environment/rocks/totem_stone_inh.tscn" id="4_o74x4"]
 [ext_resource type="PackedScene" uid="uid://cv13md4icha6k" path="res://imports/meshes/environment/rocks/wall_inh.tscn" id="5_763ek"]
@@ -58,9 +58,6 @@ _data = {
 [node name="water" parent="." instance=ExtResource("1_6ud8i")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 
-[node name="Fighter" parent="." instance=ExtResource("2_rrac5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.96088, 2.49562, 100.306)
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("3_a0p0f")
 
@@ -100,7 +97,7 @@ transform = Transform3D(0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 3.735
 shape = SubResource("CylinderShape3D_84vj0")
 
 [node name="Target_Ball" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40.5268, 46.9494)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40.5268, -64.6219)
 script = ExtResource("7_3jsx1")
 metadata/target = true
 
@@ -115,3 +112,6 @@ reset_on_save = false
 libraries = {
 "": SubResource("AnimationLibrary_mrd8g")
 }
+
+[node name="Fighter" parent="." instance=ExtResource("2_rrac5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63, 0, -102)

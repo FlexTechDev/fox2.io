@@ -1,0 +1,17 @@
+[gd_scene load_steps=7 format=3 uid="uid://7mgtcpejsl15"]
+
+[ext_resource type="PackedScene" uid="uid://bj4jgci1v3xs5" path="res://imports/meshes/ships/ship_2.glb" id="1_08wbw"]
+[ext_resource type="Material" uid="uid://c2jqfuw6g4xn3" path="res://assets/materials/colors/toon_white.tres" id="2_a54th"]
+[ext_resource type="Material" uid="uid://cen3p6hkq12mr" path="res://assets/materials/colors/toon_dark.tres" id="3_gmq5j"]
+[ext_resource type="Material" uid="uid://l3jkfxjc5dja" path="res://assets/materials/colors/toon_grey.tres" id="4_faycf"]
+[ext_resource type="Material" uid="uid://c3kujpdys7n8h" path="res://assets/materials/colors/toon_red.tres" id="5_xoxag"]
+[ext_resource type="Material" uid="uid://bn658emc2kplq" path="res://assets/materials/engine_glow.tres" id="6_vga8s"]
+
+[node name="ship_2" instance=ExtResource("1_08wbw")]
+
+[node name="Cylinder" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_a54th")
+surface_material_override/1 = ExtResource("3_gmq5j")
+surface_material_override/2 = ExtResource("4_faycf")
+surface_material_override/3 = ExtResource("5_xoxag")
+surface_material_override/4 = ExtResource("6_vga8s")
