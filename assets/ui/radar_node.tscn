@@ -1,7 +1,97 @@
-[gd_scene load_steps=3 format=3 uid="uid://dy1w1do30c3j5"]
+[gd_scene load_steps=7 format=3 uid="uid://dy1w1do30c3j5"]
 
 [ext_resource type="Texture2D" uid="uid://cyuxpyxtcbh5j" path="res://imports/textures/ui/square_hollow.png" id="1_5cvtf"]
 [ext_resource type="Script" path="res://scripts/menu/radar_node.gd" id="1_blopo"]
+
+[sub_resource type="Animation" id="Animation_lxqua"]
+resource_name = "lock"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.785398]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0.321569, 0.372549, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qcad8"]
+resource_name = "unlock"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0.321569, 0.372549, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.785398, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_1mg4y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pw8p4"]
+_data = {
+"RESET": SubResource("Animation_1mg4y"),
+"lock": SubResource("Animation_lxqua"),
+"unlock": SubResource("Animation_qcad8")
+}
 
 [node name="RadarNode" type="Control"]
 layout_mode = 3
@@ -24,3 +114,8 @@ grow_vertical = 2
 scale = Vector2(0.2, 0.2)
 pivot_offset = Vector2(26.5, 26.5)
 texture = ExtResource("1_5cvtf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_pw8p4")
+}

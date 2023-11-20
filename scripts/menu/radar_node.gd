@@ -1,18 +1,15 @@
 extends Control
 
-@export var lock_color: Color = Color.INDIAN_RED;
-@export var non_lock_color: Color = Color.WHITE;
-
 var target: Node3D;
 var is_locked: bool;
 
 func lock() -> void:
 	is_locked = true;
-	$TextureRect.modulate = lock_color;
+	$AnimationPlayer.play("lock");
 
 func unlock() -> void:
 	is_locked = false;
-	$TextureRect.modulate = non_lock_color;
+	$AnimationPlayer.play("unlock");
 
 func _process(delta: float) -> void:
 	
