@@ -29,7 +29,10 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and mouse_captured:
 		pitch_input = event.relative.y / 25;
 		turn_input = -event.relative.x / 25;
-
+	if event is InputEventJoypadMotion:
+		pitch_input = Input.get_axis("pitch_up", "pitch_down") * 2;
+		turn_input = Input.get_axis("turn_right", "turn_left") * 2;
+		
 func get_input(delta: float) -> void:
 	if Input.is_action_pressed("throttle_up"):
 		target_speed = min(forward_speed + settings.throttle_delta * delta, settings.max_speed);
