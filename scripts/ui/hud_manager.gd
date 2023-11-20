@@ -10,28 +10,21 @@ var last_locked: Control;
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey or event is InputEventJoypadButton:
 		if event.is_action_pressed("toggle_lock"):
-			if get_child(lock_index) != null:
-				if last_locked != null:
-					last_locked.unlock();
-				is_locked = false;
-				lock_index += 1;
+			lock_index += 1;
 			
-			if get_children().size() > lock_index:
-				last_locked = get_child(lock_index)
-				if last_locked != null:
-					last_locked.lock();
-					is_locked = true;
-			elif get_children().size() == lock_index and lock_index != 0:
+			if nodes_on_radar.size() < lock_index:
 				lock_index = 0;
-				last_locked = get_child(lock_index)
-				if last_locked != null:
-					last_locked.lock();
-					is_locked = true;
-			elif get_children().size() == 0:
+			
+			if nodes_on_radar.size() > 0 and nodes_on_radar.size() >= lock_index:
 				if last_locked != null:
 					last_locked.unlock();
-				is_locked = false;
-
+					is_locked = false;
+				
+				last_locked = get_child(lock_index);
+				
+				if last_locked != null:
+					last_locked.lock();
+					is_locked = true;
 func add_node_to_radar(node: Node3D) -> void:
 	var radar_instance: Control = radar_node.instantiate();
 	
