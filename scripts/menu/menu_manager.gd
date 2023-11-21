@@ -9,10 +9,11 @@ func _on_play_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/testing/island.tscn");
 
 func _on_multiplayer_pressed() -> void:
-	GlobalNetworkManager.join_server(ip.text);
+	var error = GlobalNetworkManager.join_game();
 	
-	if GlobalNetworkManager.connected_to_server:
-		get_tree().change_scene_to_file("res://scenes/testing/multi_island.tscn");
+	if error:
+		var error_g = GlobalNetworkManager.create_game();
+		if !error_g:
+			GlobalNetworkManager.load_game.rpc("res://scenes/testing/multi_island.tscn");
 	else:
-		GlobalNetworkManager.create_server();
-		get_tree().change_scene_to_file("res://scenes/testing/multi_island.tscn");
+		GlobalNetworkManager.load_game.rpc("res://scenes/testing/multi_island.tscn");
