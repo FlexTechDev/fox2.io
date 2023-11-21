@@ -18,6 +18,7 @@ func _input(event: InputEvent) -> void:
 			if nodes_on_radar.size() > 0 and nodes_on_radar.size() >= lock_index:
 				if last_locked != null:
 					last_locked.unlock();
+					last_locked = null;
 					is_locked = false;
 				
 				last_locked = get_child(lock_index);
