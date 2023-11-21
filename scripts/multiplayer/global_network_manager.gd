@@ -7,7 +7,7 @@ signal player_connected(peer_id, player_info)
 signal player_disconnected(peer_id)
 signal server_disconnected
 
-const PORT = 7000
+const PORT = 272
 const DEFAULT_SERVER_IP = "127.0.0.1" # IPv4 localhost
 const MAX_CONNECTIONS = 20
 
@@ -19,7 +19,7 @@ var players = {}
 # before the connection is made. It will be passed to every other peer.
 # For example, the value of "name" can be set to something the player
 # entered in a UI scene.
-var player_info = {"name": "Name"}
+var player_info = {"name": "Name", "network_id": 0}
 
 var players_loaded = 0
 
@@ -42,25 +42,24 @@ func join_game(address = ""):
 		return error
 	multiplayer.multiplayer_peer = peer
 
-
 func create_game():
 	var peer = ENetMultiplayerPeer.new()
 	var error = peer.create_server(PORT, MAX_CONNECTIONS)
+	
 	if error:
 		return error
+	
 	multiplayer.multiplayer_peer = peer
-
+	
+	player_info["network_id"] = multiplayer.get_unique_id();
 	players[1] = player_info
 	player_connected.emit(1, player_info)
-
 
 func remove_multiplayer_peer():
 	multiplayer.multiplayer_peer = null
 
-
 # When the server decides to start the game from a UI scene,
 # do Lobby.load_game.rpc(filepath)
-@rpc("call_local", "reliable")
 func load_game(game_scene_path):
 	get_tree().change_scene_to_file(game_scene_path)
 
@@ -84,14 +83,21 @@ func _on_player_connected(id):
 @rpc("any_peer", "reliable")
 func _register_player(new_player_info):
 	var new_player_id = multiplayer.get_remote_sender_id()
+	new_player_info["network_id"] = new_player_id;
 	players[new_player_id] = new_player_info
 	player_connected.emit(new_player_id, new_player_info)
-
+	
+	if multiplayer.is_server():
+		print("--- server")
+	else:
+		print("--- client")
+	for id in players:
+		print(players[id]["network_id"])
+	print("---")
 
 func _on_player_disconnected(id):
 	players.erase(id)
 	player_disconnected.emit(id)
-
 
 func _on_connected_ok():
 	var peer_id = multiplayer.get_unique_id()

@@ -116,4 +116,4 @@ libraries = {
 
 [node name="Network" type="Node" parent="."]
 script = ExtResource("8_qqabr")
-networked_ship_scene = ExtResource("8_xh45p")
+player_scene = ExtResource("8_xh45p")

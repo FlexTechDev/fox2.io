@@ -1,9 +1,9 @@
 [gd_scene load_steps=11 format=3 uid="uid://bgwkulu1ug4bl"]
 
 [ext_resource type="PackedScene" uid="uid://klfs1lrnw6om" path="res://imports/meshes/water/water_inh.tscn" id="1_6ud8i"]
-[ext_resource type="PackedScene" uid="uid://r7svmbyf76mj" path="res://assets/ships/ship_2.tscn" id="2_rrac5"]
 [ext_resource type="Environment" uid="uid://ru1hrhrhbxy5" path="res://assets/environment/island_environment.tres" id="3_a0p0f"]
 [ext_resource type="PackedScene" uid="uid://dhmtn3ek7kn7t" path="res://imports/meshes/environment/rocks/totem_stone_inh.tscn" id="4_o74x4"]
+[ext_resource type="PackedScene" uid="uid://dgm745hrmpfgn" path="res://assets/ships/ship.tscn" id="5_1spok"]
 [ext_resource type="Script" path="res://scenes/testing/test.gd" id="7_3jsx1"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_qo1hk"]
@@ -96,5 +96,5 @@ libraries = {
 "": SubResource("AnimationLibrary_mrd8g")
 }
 
-[node name="Fighter" parent="." instance=ExtResource("2_rrac5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63, 0, -102)
+[node name="Fighter" parent="." instance=ExtResource("5_1spok")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.6153, 0, -101.986)

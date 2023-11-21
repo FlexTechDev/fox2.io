@@ -4,6 +4,7 @@ extends CharacterBody3D
 @export var missile_scene: PackedScene;
 @export var bomb_scene: PackedScene;
 
+@onready var synchronizer: MultiplayerSynchronizer;
 @onready var launch_point: Node3D = $ship/LaunchPoint;
 @onready var water_stream_node: Node3D = get_node("../WaterStreamEffect");
 @onready var ship: Node3D = $ship;
@@ -26,8 +27,17 @@ var mouse_captured: bool = true;
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED;
+	
+	synchronizer = get_node("../MultiplayerSynchronizer");
+	synchronizer.set_multiplayer_authority(network_id);
+	
+	if synchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
+		print("in control")
 
 func _input(event: InputEvent) -> void:
+	if synchronizer.get_multiplayer_authority() != multiplayer.get_unique_id():
+		return;
+	
 	if event is InputEventMouseMotion and mouse_captured:
 		pitch_input = event.relative.y / 25;
 		turn_input = -event.relative.x / 25;
@@ -45,6 +55,13 @@ func get_input(delta: float) -> void:
 	smoothed_pitch_input = lerp(smoothed_pitch_input, pitch_input, settings.lerp_speed * delta);
 	
 func _physics_process(delta: float) -> void:
+	if synchronizer == null:
+		synchronizer = get_node("../MultiplayerSynchronizer");
+		synchronizer.set_multiplayer_authority(network_id);
+	
+	if synchronizer.get_multiplayer_authority() != multiplayer.get_unique_id():
+		return;
+	
 	get_input(delta);
 	
 	if Input.is_action_just_pressed("escape"):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dgm745hrmpfgn"]
+[gd_scene load_steps=17 format=3 uid="uid://dgm745hrmpfgn"]
 
 [ext_resource type="Script" path="res://scripts/aircraft_controller.gd" id="1_15scv"]
 [ext_resource type="PackedScene" uid="uid://bjvq8kvukd662" path="res://imports/meshes/ships/ship_inh.tscn" id="1_ct1qa"]
@@ -35,6 +35,16 @@ size = Vector3(1.17402, 0.456869, 0.0336996)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_6am3v"]
 radius = 51.7407
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_jefes"]
+properties/0/path = NodePath("RigidBody3D:position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
+properties/1/path = NodePath("RigidBody3D:rotation")
+properties/1/spawn = true
+properties/1/sync = true
+properties/1/watch = false
 
 [node name="Fighter" type="Node3D"]
 
@@ -95,6 +105,10 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("9_g3v5k")
 radar_node = ExtResource("10_d1ocp")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_interval = 1.0
+replication_config = SubResource("SceneReplicationConfig_jefes")
 
 [connection signal="body_entered" from="RigidBody3D/Camera3D/Area3D" to="RigidBody3D/Camera3D" method="_on_body_enter_radar"]
 [connection signal="body_exited" from="RigidBody3D/Camera3D/Area3D" to="RigidBody3D/Camera3D" method="_on_body_exit_radar"]
