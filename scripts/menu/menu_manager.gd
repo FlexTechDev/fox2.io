@@ -5,20 +5,22 @@ extends Control
 var connected: bool = false;
 
 func _ready() -> void:
-	GlobalNetworkManager.connect_to_network();
+	GlobalNetworkManager.initialize_multiplayer();
 	
-	GlobalNetworkManager.player_connected.connect(_on_player_connected);
+	GlobalNetworkManager.server_created.connect(_on_server_created);
+	GlobalNetworkManager.server_joined.connect(_on_server_joined);
 
 func _on_play_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/testing/island.tscn");
 
-func _on_multiplayer_pressed() -> void:
-	var error = GlobalNetworkManager.join_game();
-	
-	if !connected:
-		var error_g = GlobalNetworkManager.create_game();
+func _on_host_pressed() -> void:
+	GlobalNetworkManager.host_server();
 
-func _on_player_connected(peer_id, player_info) -> void:
-	if peer_id == multiplayer.get_unique_id():
-		connected = true;
-		GlobalNetworkManager.load_game("res://scenes/testing/multi_island.tscn");
+func _on_join_pressed() -> void:
+	GlobalNetworkManager.join_server();
+
+func _on_server_created() -> void:
+	get_tree().change_scene_to_file("res://scenes/testing/multi_island.tscn");
+
+func _on_server_joined() -> void:
+	get_tree().change_scene_to_file("res://scenes/testing/multi_island.tscn");

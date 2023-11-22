@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dgm745hrmpfgn"]
+[gd_scene load_steps=18 format=3 uid="uid://dgm745hrmpfgn"]
 
 [ext_resource type="Script" path="res://scripts/aircraft_controller.gd" id="1_15scv"]
 [ext_resource type="PackedScene" uid="uid://bjvq8kvukd662" path="res://imports/meshes/ships/ship_inh.tscn" id="1_ct1qa"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://scripts/menu/radar_controller.gd" id="8_v27qv"]
 [ext_resource type="Script" path="res://scripts/ui/hud_manager.gd" id="9_g3v5k"]
 [ext_resource type="PackedScene" uid="uid://dy1w1do30c3j5" path="res://assets/ui/radar_node.tscn" id="10_d1ocp"]
+[ext_resource type="Script" path="res://scripts/multiplayer/ship_synchronizer_manager.gd" id="12_1qflt"]
 
 [sub_resource type="Resource" id="Resource_bpkpd"]
 script = ExtResource("2_2ncw7")
@@ -45,6 +46,30 @@ properties/1/path = NodePath("RigidBody3D:rotation")
 properties/1/spawn = true
 properties/1/sync = true
 properties/1/watch = false
+properties/2/path = NodePath("RigidBody3D/ship:rotation")
+properties/2/spawn = true
+properties/2/sync = true
+properties/2/watch = false
+properties/3/path = NodePath("RigidBody3D/ship/engine_flame:scale")
+properties/3/spawn = true
+properties/3/sync = true
+properties/3/watch = false
+properties/4/path = NodePath("RigidBody3D/ship/super_sonic_cone:scale")
+properties/4/spawn = true
+properties/4/sync = true
+properties/4/watch = false
+properties/5/path = NodePath("WaterStreamEffect:scale")
+properties/5/spawn = true
+properties/5/sync = true
+properties/5/watch = false
+properties/6/path = NodePath("WaterStreamEffect:position")
+properties/6/spawn = true
+properties/6/sync = true
+properties/6/watch = false
+properties/7/path = NodePath("WaterStreamEffect:rotation")
+properties/7/spawn = true
+properties/7/sync = true
+properties/7/watch = false
 
 [node name="Fighter" type="Node3D"]
 
@@ -107,8 +132,8 @@ script = ExtResource("9_g3v5k")
 radar_node = ExtResource("10_d1ocp")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_interval = 1.0
 replication_config = SubResource("SceneReplicationConfig_jefes")
+script = ExtResource("12_1qflt")
 
 [connection signal="body_entered" from="RigidBody3D/Camera3D/Area3D" to="RigidBody3D/Camera3D" method="_on_body_enter_radar"]
 [connection signal="body_exited" from="RigidBody3D/Camera3D/Area3D" to="RigidBody3D/Camera3D" method="_on_body_exit_radar"]

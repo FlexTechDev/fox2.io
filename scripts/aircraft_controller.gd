@@ -4,7 +4,6 @@ extends CharacterBody3D
 @export var missile_scene: PackedScene;
 @export var bomb_scene: PackedScene;
 
-@onready var synchronizer: MultiplayerSynchronizer;
 @onready var launch_point: Node3D = $ship/LaunchPoint;
 @onready var water_stream_node: Node3D = get_node("../WaterStreamEffect");
 @onready var ship: Node3D = $ship;
@@ -13,6 +12,8 @@ extends CharacterBody3D
 @onready var sonic_boom_cone: AnimationPlayer = $ship/super_sonic_cone/AnimationPlayer;
 @onready var hud: Control = get_node("../Control/HUD");
 
+
+var is_in_control: bool = true;
 var forward_speed: float = 0;
 var target_speed: float = 0;
 
@@ -24,15 +25,11 @@ var smoothed_pitch_input: float = 0;
 var mouse_captured: bool = true;
 
 func _ready() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED;
-	
-	synchronizer = get_node("../MultiplayerSynchronizer");
-	
-	if synchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
-		print("in control")
+	if !is_in_control:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED;
 
 func _input(event: InputEvent) -> void:
-	if synchronizer.get_multiplayer_authority() != multiplayer.get_unique_id():
+	if !is_in_control:
 		return;
 	
 	if event is InputEventMouseMotion and mouse_captured:
@@ -52,10 +49,9 @@ func get_input(delta: float) -> void:
 	smoothed_pitch_input = lerp(smoothed_pitch_input, pitch_input, settings.lerp_speed * delta);
 	
 func _physics_process(delta: float) -> void:
-	if synchronizer == null:
-		synchronizer = get_node("../MultiplayerSynchronizer");
+	sonic_boom_cone.play("idle");
 	
-	if synchronizer.get_multiplayer_authority() != multiplayer.get_unique_id():
+	if !is_in_control:
 		return;
 	
 	get_input(delta);
