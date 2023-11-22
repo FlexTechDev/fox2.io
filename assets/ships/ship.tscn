@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://dgm745hrmpfgn"]
+[gd_scene load_steps=19 format=3 uid="uid://dgm745hrmpfgn"]
 
 [ext_resource type="Script" path="res://scripts/aircraft_controller.gd" id="1_15scv"]
 [ext_resource type="PackedScene" uid="uid://bjvq8kvukd662" path="res://imports/meshes/ships/ship_inh.tscn" id="1_ct1qa"]
+[ext_resource type="Script" path="res://scripts/aircraft_health.gd" id="1_o4hpy"]
 [ext_resource type="Script" path="res://scripts/aircraft_settings.gd" id="2_2ncw7"]
 [ext_resource type="PackedScene" uid="uid://bx1bhewvjo0v3" path="res://assets/weapons/missile.tscn" id="3_pa0be"]
 [ext_resource type="PackedScene" uid="uid://dnxwmnqbllaeg" path="res://imports/meshes/flame/engine_flame_inh.tscn" id="4_ljwc7"]
@@ -38,78 +39,80 @@ size = Vector3(1.17402, 0.456869, 0.0336996)
 radius = 51.7407
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_jefes"]
-properties/0/path = NodePath("RigidBody3D:position")
+properties/0/path = NodePath("WaterStreamEffect:scale")
 properties/0/spawn = true
 properties/0/sync = true
 properties/0/watch = false
-properties/1/path = NodePath("RigidBody3D:rotation")
+properties/1/path = NodePath("WaterStreamEffect:position")
 properties/1/spawn = true
 properties/1/sync = true
 properties/1/watch = false
-properties/2/path = NodePath("RigidBody3D/ship:rotation")
+properties/2/path = NodePath("WaterStreamEffect:rotation")
 properties/2/spawn = true
 properties/2/sync = true
 properties/2/watch = false
-properties/3/path = NodePath("RigidBody3D/ship/engine_flame:scale")
+properties/3/path = NodePath("Body:position")
 properties/3/spawn = true
 properties/3/sync = true
 properties/3/watch = false
-properties/4/path = NodePath("RigidBody3D/ship/super_sonic_cone:scale")
+properties/4/path = NodePath("Body:rotation")
 properties/4/spawn = true
 properties/4/sync = true
 properties/4/watch = false
-properties/5/path = NodePath("WaterStreamEffect:scale")
+properties/5/path = NodePath("Body/ship:rotation")
 properties/5/spawn = true
 properties/5/sync = true
 properties/5/watch = false
-properties/6/path = NodePath("WaterStreamEffect:position")
+properties/6/path = NodePath("Body/ship/engine_flame:scale")
 properties/6/spawn = true
 properties/6/sync = true
 properties/6/watch = false
-properties/7/path = NodePath("WaterStreamEffect:rotation")
+properties/7/path = NodePath("Body:visible")
 properties/7/spawn = true
 properties/7/sync = true
 properties/7/watch = false
 
 [node name="Fighter" type="Node3D"]
+script = ExtResource("1_o4hpy")
 
-[node name="RigidBody3D" type="CharacterBody3D" parent="."]
+[node name="Body" type="CharacterBody3D" parent="."]
 script = ExtResource("1_15scv")
 settings = SubResource("Resource_bpkpd")
 missile_scene = ExtResource("3_pa0be")
 bomb_scene = ExtResource("4_nw038")
+metadata/target = true
 
-[node name="ship" parent="RigidBody3D" instance=ExtResource("1_ct1qa")]
+[node name="ship" parent="Body" instance=ExtResource("1_ct1qa")]
 
-[node name="engine_flame" parent="RigidBody3D/ship" instance=ExtResource("4_ljwc7")]
+[node name="engine_flame" parent="Body/ship" instance=ExtResource("4_ljwc7")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.000119627, -0.0201354, -0.501241)
 
-[node name="super_sonic_cone" parent="RigidBody3D/ship" instance=ExtResource("5_yjad3")]
+[node name="super_sonic_cone" parent="Body/ship" instance=ExtResource("5_yjad3")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.0802041)
 
-[node name="LaunchPoint" type="Node3D" parent="RigidBody3D/ship"]
+[node name="LaunchPoint" type="Node3D" parent="Body/ship"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.593882, 0)
 
-[node name="Body" type="CollisionShape3D" parent="RigidBody3D"]
+[node name="Body" type="CollisionShape3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.0235822, -0.0137651)
 shape = SubResource("CylinderShape3D_hell1")
 
-[node name="Wings" type="CollisionShape3D" parent="RigidBody3D"]
+[node name="Wings" type="CollisionShape3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.0331419, -0.25777)
 shape = SubResource("BoxShape3D_6kkap")
 
-[node name="Camera3D" type="Camera3D" parent="RigidBody3D"]
+[node name="Camera3D" type="Camera3D" parent="Body"]
 transform = Transform3D(-0.999969, 0.00238928, -0.00755539, 0.000634194, 0.974533, 0.224245, 0.00789876, 0.224233, -0.974504, 0, 1.00946, -3.85336)
 current = true
 script = ExtResource("8_v27qv")
 
-[node name="Area3D" type="Area3D" parent="RigidBody3D/Camera3D"]
+[node name="Area3D" type="Area3D" parent="Body/Camera3D"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D/Camera3D/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Body/Camera3D/Area3D"]
 transform = Transform3D(1, 0, 0, -4.65661e-10, 1, 5.96046e-08, 5.58794e-09, 7.45058e-08, 0.999999, 7.63685e-08, -1.07288e-06, -56.1544)
 shape = SubResource("SphereShape3D_6am3v")
 
-[node name="RayCast3D" type="RayCast3D" parent="RigidBody3D"]
+[node name="RayCast3D" type="RayCast3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.74634)
 target_position = Vector3(0, -15, 0)
 collision_mask = 2
@@ -135,5 +138,5 @@ radar_node = ExtResource("10_d1ocp")
 replication_config = SubResource("SceneReplicationConfig_jefes")
 script = ExtResource("12_1qflt")
 
-[connection signal="body_entered" from="RigidBody3D/Camera3D/Area3D" to="RigidBody3D/Camera3D" method="_on_body_enter_radar"]
-[connection signal="body_exited" from="RigidBody3D/Camera3D/Area3D" to="RigidBody3D/Camera3D" method="_on_body_exit_radar"]
+[connection signal="body_entered" from="Body/Camera3D/Area3D" to="Body/Camera3D" method="_on_body_enter_radar"]
+[connection signal="body_exited" from="Body/Camera3D/Area3D" to="Body/Camera3D" method="_on_body_exit_radar"]

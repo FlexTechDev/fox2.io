@@ -26,6 +26,7 @@ func _input(event: InputEvent) -> void:
 				if last_locked != null:
 					last_locked.lock();
 					is_locked = true;
+
 func add_node_to_radar(node: Node3D) -> void:
 	var radar_instance: Control = radar_node.instantiate();
 	

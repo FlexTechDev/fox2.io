@@ -12,7 +12,7 @@ extends CharacterBody3D
 @onready var sonic_boom_cone: AnimationPlayer = $ship/super_sonic_cone/AnimationPlayer;
 @onready var hud: Control = get_node("../Control/HUD");
 
-
+var is_dead: bool = false;
 var is_in_control: bool = true;
 var forward_speed: float = 0;
 var target_speed: float = 0;
@@ -30,6 +30,8 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if !is_in_control:
+		return;
+	if is_dead:
 		return;
 	
 	if event is InputEventMouseMotion and mouse_captured:
@@ -52,6 +54,8 @@ func _physics_process(delta: float) -> void:
 	sonic_boom_cone.play("idle");
 	
 	if !is_in_control:
+		return;
+	if is_dead:
 		return;
 	
 	get_input(delta);
@@ -84,8 +88,10 @@ func _physics_process(delta: float) -> void:
 		sonic_boom_cone.play("idle");
 	
 	if Input.is_action_just_pressed("fire_missile"):
+		fire_missile.rpc();
 		fire_missile();
 	if Input.is_action_just_pressed("drop_bomb"):
+		drop_bomb.rpc();
 		drop_bomb();
 	
 	engine_flame.scale.y = target_speed / settings.max_speed;
@@ -100,6 +106,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		water_stream_node.scale.y = 0;
 
+@rpc("any_peer", "reliable")
 func drop_bomb(target: Node3D = null) -> CharacterBody3D:
 	var bomb_instance = bomb_scene.instantiate();
 	
@@ -112,6 +119,7 @@ func drop_bomb(target: Node3D = null) -> CharacterBody3D:
 	
 	return bomb_instance;
 
+@rpc("any_peer", "reliable")
 func fire_missile(target: Node3D = null) -> CharacterBody3D:
 	var missile_instance = missile_scene.instantiate();
 	

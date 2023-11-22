@@ -46,6 +46,10 @@ func explode() -> void:
 	explosion_instance.global_rotation = global_rotation;
 	explosion_instance.explode();
 	
+	for body in $DamageRadius.get_overlapping_bodies():
+		if body.get_parent().has_method("take_damage"):
+			body.get_parent().take_damage.rpc((100-global_position.distance_to(body.global_position))/10);
+	
 	queue_free();
 
 func track(target: Node3D) -> void:
