@@ -13,8 +13,6 @@ extends CharacterBody3D
 @onready var sonic_boom_cone: AnimationPlayer = $ship/super_sonic_cone/AnimationPlayer;
 @onready var hud: Control = get_node("../Control/HUD");
 
-var network_id: int = 0;
-
 var forward_speed: float = 0;
 var target_speed: float = 0;
 
@@ -29,7 +27,6 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED;
 	
 	synchronizer = get_node("../MultiplayerSynchronizer");
-	synchronizer.set_multiplayer_authority(network_id);
 	
 	if synchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
 		print("in control")
@@ -57,7 +54,6 @@ func get_input(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	if synchronizer == null:
 		synchronizer = get_node("../MultiplayerSynchronizer");
-		synchronizer.set_multiplayer_authority(network_id);
 	
 	if synchronizer.get_multiplayer_authority() != multiplayer.get_unique_id():
 		return;
